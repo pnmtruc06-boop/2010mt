@@ -349,22 +349,19 @@
 
   })();
 </script>
-<audio id="backgroundMusic" autoplay loop muted>
-  <source src="nhac.mp3" type="audio/mpeg">
-  Trình duyệt của bạn không hỗ trợ phát nhạc.
-</audio>
+<audio id="music" src="nhac.mp3" autoplay loop muted></audio>
 
 <script>
-  const music = document.getElementById('backgroundMusic');
-  music.volume = 0.15;
+  const music = document.getElementById("music");
+  music.volume = 0.2;
 
-  // Khi người dùng click lần đầu vào trang, bật nhạc
-  document.body.addEventListener('click', () => {
+  // Sau 0.5 giây (500 mili giây) thì bỏ mute và phát nhạc
+  setTimeout(() => {
     music.muted = false;
-    music.play().catch(err => {
-      console.warn("Không thể phát nhạc:", err);
-    });
-  }, { once: true });
+    music.play().catch(err => console.log("Không phát được nhạc:", err));
+  }, 500);
 </script>
+
 </body>
 </html>
+
