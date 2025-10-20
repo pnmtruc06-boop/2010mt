@@ -349,19 +349,48 @@
 
   })();
 </script>
-<audio id="music" src="nhac.mp3" autoplay loop muted></audio>
+<!-- Nhạc nền -->
+<audio id="music" src="nhac.mp3" loop></audio>
+
+<!-- Nút bật/tắt nhạc -->
+<button id="musicBtn" style="
+  position: fixed;
+  bottom: 25px;
+  right: 25px;
+  width: 55px;
+  height: 55px;
+  border-radius: 50%;
+  border: none;
+  background: rgba(255,255,255,0.8);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+  font-size: 25px;
+  cursor: pointer;
+  z-index: 999;
+  transition: all 0.3s ease;
+">🎵</button>
 
 <script>
-  const music = document.getElementById("music");
+  const music = document.getElementById('music');
+  const btn = document.getElementById('musicBtn');
+  let playing = false;
   music.volume = 0.2;
 
-  // Sau 0.5 giây (500 mili giây) thì bỏ mute và phát nhạc
-  setTimeout(() => {
-    music.muted = false;
-    music.play().catch(err => console.log("Không phát được nhạc:", err));
-  }, 500);
+  btn.addEventListener('click', () => {
+    if (!playing) {
+      music.play();
+      playing = true;
+      btn.textContent = '🔇'; // đổi icon khi đang phát
+      btn.style.background = 'rgba(255,182,193,0.9)';
+    } else {
+      music.pause();
+      playing = false;
+      btn.textContent = '🎵'; // đổi lại khi tắt
+      btn.style.background = 'rgba(255,255,255,0.8)';
+    }
+  });
 </script>
 
 </body>
 </html>
+
 
