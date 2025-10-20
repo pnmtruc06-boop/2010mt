@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Chúc Mừng 20/10 - Những Người Phụ Nữ Tuyệt Vời!</title>
+<style>
+  /* Reset & base */
+  * {
+    margin: 0; padding: 0; box-sizing: border-box;
+  }
+  body, html {
+    height: 100%;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #fceabb 0%, #f8b500 100%);
+    overflow: hidden;
+    color: #222;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  /* Container slideshow */
+  #slideshow {
+    position: relative;
+    width: 90vw;
+    max-width: 900px;
+    height: 600px;
+    border-radius: 25px;
+    overflow: hidden;
+    box-shadow:
+      0 20px 50px rgba(0,0,0,0.3),
+      inset 0 0 150px rgba(255,182,193,0.4);
+    background: linear-gradient(180deg, #fff0f6 0%, #ffd6db 100%);
+  }
+
+  /* Slide base style */
+  .slide {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    pointer-events: none;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    transition: opacity 1.8s ease-in-out;
+  }
+
+  .slide.active {
+    opacity: 1;
+    pointer-events: auto;
+    z-index: 10;
+  }
+
+  /* Background images for intro and final */
+  .slide.intro, .slide.final {
+    background-position: center center;
+    background-size: cover;
+    color: white;
+    text-shadow: 2px 2px 6px rgba(0,0,0,0.7);
+    font-size: 3.5rem;
+    font-weight: 700;
+    letter-spacing: 0.07em;
+    user-select: none;
+  }
+  .slide.intro {
+    background-image: url('html/intro-background.jpg');
+  }
+  .slide.final {
+    background-image: url('html/final-slide.jpg');
+  }
+
+  /* Intro & final text wrapper */
+  .slide .text-wrapper {
+    background: rgba(0,0,0,0.4);
+    padding: 25px 40px;
+    border-radius: 30px;
+    max-width: 80%;
+    text-align: center;
+    animation: glowText 3s ease-in-out infinite alternate;
+  }
+
+  @keyframes glowText {
+    from {
+      text-shadow: 0 0 15px #ff5f70, 0 0 40px #ff9ca4;
+    }
+    to {
+      text-shadow: 0 0 35px #ff5f70, 0 0 70px #ff9ca4;
+    }
+  }
+
+  /* Cards (slides with people) */
+  .slide.card {
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 25px;
+    padding: 30px;
+    flex-direction: column;
+    box-shadow: 0 15px 40px rgba(255, 111, 97, 0.3);
+    color: #444;
+  }
+
+  .slide.card img {
+    width: 180px;
+    height: 180px;
+    border-radius: 50%;
+    border: 6px solid #ff6f61;
+    object-fit: cover;
+    margin-bottom: 25px;
+    box-shadow: 0 0 25px rgba(255,111,97,0.8);
+    animation: floatImg 6s ease-in-out infinite;
+  }
+  @keyframes floatImg {
+    0%,100% { transform: translateY(0) scale(1) rotate(0deg); }
+    50% { transform: translateY(-20px) scale(1.05) rotate(4deg); }
+  }
+
+  .slide.card .message {
+    font-size: 1.3rem;
+    line-height: 1.8;
+    max-width: 90%;
+    position: relative;
+    padding: 0 15px;
+    color: #6b2b2b;
+    font-weight: 600;
+  }
+
+  /* Icon style trong lời chúc */
+  .slide.card .message em {
+    font-style: normal;
+    color: #ff4a3b;
+    margin-left: 6px;
+    animation: pulse 2s infinite alternate;
+    user-select: none;
+  }
+  @keyframes pulse {
+    from { opacity: 0.7; transform: scale(1);}
+    to {opacity: 1; transform: scale(1.15);}
+  }
+
+  /* Responsive */
+  @media (max-width: 720px) {
+    #slideshow {
+      height: 520px;
+    }
+    .slide.card img {
+      width: 140px;
+      height: 140px;
+      margin-bottom: 20px;
+    }
+    .slide.card .message {
+      font-size: 1.1rem;
+    }
+    .slide.intro, .slide.final {
+      font-size: 2.2rem;
+      padding: 0 15px;
+    }
+  }
+
+  /* Floating hearts and roses */
+  .floating-container {
+    position: absolute;
+    width: 100vw;
+    height: 100vh;
+    pointer-events: none;
+    overflow: visible;
+    top: 0; left: 0; right: 0; bottom: 0;
+    z-index: 5;
+  }
+
+  .floating {
+    position: fixed;
+    bottom: -60px;
+    pointer-events: none;
+    user-select: none;
+    opacity: 0.8;
+    animation-timing-function: linear;
+  }
+
+  /* Float animations */
+  @keyframes floatUpLeft {
+    0% { transform: translate(0,0) rotate(0deg); opacity: 0.8; }
+    50% { transform: translate(-40px, -55vh) rotate(15deg); opacity: 1; }
+    100% { transform: translate(0, -110vh) rotate(0deg); opacity: 0; }
+  }
+  @keyframes floatUpRight {
+    0% { transform: translate(0,0) rotate(0deg); opacity: 0.8; }
+    50% { transform: translate(40px, -55vh) rotate(-15deg); opacity: 1; }
+    100% { transform: translate(0, -110vh) rotate(0deg); opacity: 0; }
+  }
+
+  /* Size variants */
+  .floating.small { width: 30px; }
+  .floating.medium { width: 45px; }
+  .floating.large { width: 60px; }
+
+</style>
+</head>
+<body>
+
+<div id="slideshow">
+
+  <!-- Intro Slide -->
+  <section class="slide intro active">
+    <div class="text-wrapper">
+      <div>Chúc Mừng 20/10! 💖🌹</div>
+      <div style="font-size:0.8em; margin-top:12px;">Gửi đến những người phụ nữ tuyệt vời nhất trong cuộc đời chúng ta!</div>
+    </div>
+  </section>
+
+  <!-- Cards -->
+  <section class="slide card">
+    <img src="hong.jpg" alt="Người 1" />
+    <p class="message">
+      Gửi chị già, chúc chị 20/10 vui vẻ nhó 🎂<em>🎉</em>, sớm có ip17promax 2t 📱<em>✨</em>, mỗi ngày điều vui vẻ, trẻ đẹp hơn 1 chút:333 <em>💕</em>
+    </p>
+  </section>
+
+  <section class="slide card">
+    <img src="qnhu.jpg" alt="Người 2" />
+    <p class="message">
+      Gửi chó gẻ 20/10 duiii 🎉<em>🔥</em>, nhanh ốm 🤒<em>🌿</em>, học lẹ ra trường nuôi em 🐶<em>💪</em>, ngày càng đẹp gáiii:333 <em>💐</em>
+    </p>
+  </section>
+
+  <section class="slide card">
+    <img src="vy.jpg" alt="Người 3" />
+    <p class="message">
+      Gửi Khả Vy 20/10 vui vẻ nhoa 😊<em>🌟</em>, chúc bòa bắng tiếng trung như gió 🌬️<em>🌸</em>, luôn vui vẻ lạc quan yêu đời nghenn:333 <em>🌈</em>
+    </p>
+  </section>
+
+  <section class="slide card">
+    <img src="xu.jpg" alt="Người 4" />
+    <p class="message">
+      Gửi Xu 20/10 vui vẻ 🎈<em>🎯</em>, học giỏi đừng để rớt môn không bà gái ông tèo mệt 😅<em>💡</em>, sớm lấy chòng 💍:333 <em>💖</em>
+    </p>
+  </section>
+
+  <section class="slide card">
+    <img src="tnhu.jpg" alt="Người 5" />
+    <p class="message">
+      Gửi TNhư 20/10 vui vẻ nè 🎉<em>🎈</em>, chúc bà ngồi không cũng ốm 🤣<em>🍀</em>, ốm trơ xương, si dinh dưỡng, cho đẹp gái nhoa:333 <em>💄</em>
+    </p>
+  </section>
+
+  <!-- Final Slide -->
+  <section class="slide final">
+    <div class="text-wrapper">
+      Chúc những cô gái của chúng ta có một ngày 20/10 thật trọn vẹn! 💐❤️
+    </div>
+  </section>
+
+  <!-- Floating hearts and roses container -->
+  <div class="floating-container"></div>
+</div>
+
+<audio id="backgroundMusic" src="Nguoi-Con-Gai-Ta-Thuong-Ha-Anh-Tuan.mp3" loop autoplay></audio>
+
+<script>
+  (() => {
+    const slides = document.querySelectorAll('#slideshow .slide');
+    let current = 0;
+    const slideCount = slides.length;
+    const music = document.getElementById('backgroundMusic');
+    music.volume = 0.15; // Nhạc nhẹ nhàng
+
+    // Hỗ trợ autoplay nhạc (nếu trình duyệt chặn sẽ chờ click)
+    music.play().catch(() => {
+      console.log('Autoplay bị chặn, hãy click để bật nhạc.');
+      document.body.addEventListener('click', () => music.play());
+    });
+
+    // Hiệu ứng chuyển slide mượt
+    function showSlide(index) {
+      slides.forEach((slide, i) => {
+        slide.classList.remove('active');
+        if(i === index) {
+          slide.classList.add('active');
+        }
+      });
+    }
+
+    // Thời gian mỗi slide hiển thị (ms)
+    // Intro 5s, mỗi card 10s, final 10s
+    const durations = [5000];
+    for(let i=1; i < slideCount-1; i++) durations.push(10000);
+    durations.push(10000);
+
+    function nextSlide() {
+      current++;
+      if(current >= slideCount) current = 0;
+      showSlide(current);
+      clearTimeout(timeoutId);
+      timeoutId = setTimeout(nextSlide, durations[current]);
+    }
+
+    showSlide(current);
+    let timeoutId = setTimeout(nextSlide, durations[current]);
+
+    // Tạo hoa hồng và trái tim bay lên
+    const floatingContainer = document.querySelector('.floating-container');
+
+  const floatingImages = [
+  // Trái tim
+  'https://cdn-icons-png.flaticon.com/512/833/833472.png',
+  'https://cdn-icons-png.flaticon.com/512/1077/1077035.png',
+  'https://cdn-icons-png.flaticon.com/512/833/833472.png',
+   'https://cdn-icons-png.flaticon.com/512/833/833472.png',
+  'https://cdn-icons-png.flaticon.com/512/1077/1077035.png',
+  'https://cdn-icons-png.flaticon.com/512/833/833472.png',
+   'https://cdn-icons-png.flaticon.com/512/833/833472.png',
+  'https://cdn-icons-png.flaticon.com/512/1077/1077035.png',
+  'https://cdn-icons-png.flaticon.com/512/833/833472.png',
+   'https://cdn-icons-png.flaticon.com/512/833/833472.png',
+  'https://cdn-icons-png.flaticon.com/512/1077/1077035.png',
+  'https://cdn-icons-png.flaticon.com/512/833/833472.png',
+   'https://cdn-icons-png.flaticon.com/512/833/833472.png',
+  'https://cdn-icons-png.flaticon.com/512/1077/1077035.png',
+  'https://cdn-icons-png.flaticon.com/512/833/833472.png',
+   'https://cdn-icons-png.flaticon.com/512/833/833472.png',
+  'https://cdn-icons-png.flaticon.com/512/1077/1077035.png',
+  'https://cdn-icons-png.flaticon.com/512/833/833472.png',
+];
+
+
+
+    function createFloating() {
+      const imgSrc = floatingImages[Math.floor(Math.random()*floatingImages.length)];
+      const floatEl = document.createElement('img');
+      floatEl.src = imgSrc;
+      floatEl.className = 'floating';
+      // random size
+      const sizes = ['small','medium','large'];
+      floatEl.classList.add(sizes[Math.floor(Math.random()*sizes.length)]);
+      floatEl.style.left = (Math.random()*window.innerWidth) + 'px';
+      floatEl.style.animationName = Math.random() > 0.5 ? 'floatUpLeft' : 'floatUpRight';
+      floatEl.style.animationDuration = (5 + Math.random()*5) + 's';
+      floatingContainer.appendChild(floatEl);
+
+      setTimeout(() => {
+        floatEl.remove();
+      }, 11000);
+    }
+
+    // Tạo liên tục hoa, tim bay
+    setInterval(createFloating, 400);
+
+  })();
+</script>
+<audio id="backgroundMusic" autoplay loop muted>
+  <source src="nhac.mp3" type="audio/mpeg">
+  Trình duyệt của bạn không hỗ trợ phát nhạc.
+</audio>
+
+<script>
+  const music = document.getElementById('backgroundMusic');
+  music.volume = 0.15;
+
+  // Khi người dùng click lần đầu vào trang, bật nhạc
+  document.body.addEventListener('click', () => {
+    music.muted = false;
+    music.play().catch(err => {
+      console.warn("Không thể phát nhạc:", err);
+    });
+  }, { once: true });
+</script>
+</body>
+</html>
